@@ -1,3 +1,5 @@
+Ini adalah file untuk m
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -13,7 +15,10 @@ return new class extends Migration {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('author');
+            // Menghubungkan kolom author di tabel posts ke id dalam tabel users (foreignkey constrained)
+            $table->foreignId('author_id')->constrained(
+                table: 'users', indexName: 'posts_author_id'
+            );
             $table->string('slug')->unique();
             $table->text('body');
             $table->timestamps();
