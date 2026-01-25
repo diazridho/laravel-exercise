@@ -7,14 +7,13 @@
     <!-- reference asset -->
     @vite(['resources/css/app.css', 'resources/js/app.js']) 
 
-
 </head>
 
 <body class='h-full'>
     <div class="min-h-full">
 
     <!-- kode rumit ada di components navbar -->
-    <x-navbar />
+    <x-navbar></x-navbar>
 
     <!-- mengisi $slot di header_comp -->
     <x-header_comp> {{ $title }} </x-header_comp>

@@ -15,7 +15,7 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     $data = [
-        'title' => 'About',
+        "title" => 'About',
         'nama' => 'Diaz',
         'pekerjaan' => 'Programmer',
         'alamat' => 'Indonesia'
@@ -24,15 +24,11 @@ Route::get('/about', function () {
     return view('pages.about', $data);
 });
 
-// untuk mengirim data dengan banyak alamat
-Route::get('/posts/{slug}', function ($slug) {
-
-    // untuk mengambil 1 data yang sesuai dengan alamat unik url menggunakan fungsi find
-    $post = Post::find($slug);
+// route model binding
+Route::get('/posts/{post:slug}', function (Post $post) {
 
     return view('pages.post', ['title' => 'Single Post', 'post' => $post]);
 });
-
 
 Route::get('/contact', function () {
     return view('pages.contact', ['title' => 'Contact']);
@@ -45,4 +41,5 @@ Route::get('/posts', function () {
         'posts' => Post::all()
     ]);
 });
+
 
