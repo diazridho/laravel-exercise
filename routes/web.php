@@ -2,6 +2,8 @@
 use Illuminate\Support\Facades\Route;
 // class Post untuk datanya
 use App\Models\Post;
+use App\Models\User;
+use App\Http\Controllers\ContactController;
 
 
 // // tidak bisa kirim data
@@ -34,6 +36,7 @@ Route::get('/contact', function () {
     return view('pages.contact', ['title' => 'Contact']);
 });
 
+
 // untuk page blog utama
 Route::get('/posts', function () {
     return view('pages.posts', [
@@ -42,4 +45,10 @@ Route::get('/posts', function () {
     ]);
 });
 
+Route::get('/authors/{user}', function (User $user){
+    return view('pages.posts', [
+        'title'=>'Post by',
+        'posts' => $user->posts,
+    ]);
+});
 
