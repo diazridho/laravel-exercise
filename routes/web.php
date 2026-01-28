@@ -1,4 +1,5 @@
 <?php
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 // class Post untuk datanya
 use App\Models\Post;
@@ -45,10 +46,18 @@ Route::get('/posts', function () {
     ]);
 });
 
-Route::get('/authors/{user}', function (User $user){
+// Menampilkan posts berdasarkan author
+Route::get('/authors/{user:username}', function (User $user){
     return view('pages.posts', [
-        'title'=>'Post by',
+        'title'=> count($user->posts) . ' Post by ' . $user->name,
         'posts' => $user->posts,
     ]);
 });
 
+// Menampilkan posts berdasarkan category
+Route::get('/category/{category:slug}', function (Category $category){
+    return view('pages.posts', [
+        'title'=> 'Category web ',
+        'posts' => $category->posts,
+    ]);
+});

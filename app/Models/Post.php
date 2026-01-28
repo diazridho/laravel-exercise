@@ -20,5 +20,10 @@ class Post extends Model //otomatis terhubung dengan table posts
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
 }
 ;
