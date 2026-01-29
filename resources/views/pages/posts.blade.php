@@ -15,7 +15,7 @@
                 By
                 <a href="/authors/{{ $post['author']['username'] }}" class="hover:underline text-base text-gray-500"> {{ $post['author']['name'] }}</a>
                 In
-                <a href="/category/{{ $post['category']['slug'] }}" class="hover:underline text-base text-gray-500"> {{ $post['category']['name'] }} </a>
+                <a href="/categories/{{ $post['category']['slug'] }}" class="hover:underline text-base text-gray-500"> {{ $post['category']['name'] }} </a>
                 | {{ $post['created_at']->format('j F Y') }}
             </div>
             <p class="my-4 font-light"> {{ Str::limit($post['body'], 100) }}</p>

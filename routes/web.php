@@ -37,7 +37,6 @@ Route::get('/contact', function () {
     return view('pages.contact', ['title' => 'Contact']);
 });
 
-
 // untuk page blog utama
 Route::get('/posts', function () {
     return view('pages.posts', [
@@ -47,17 +46,17 @@ Route::get('/posts', function () {
 });
 
 // Menampilkan posts berdasarkan author
-Route::get('/authors/{user:username}', function (User $user){
+Route::get('/authors/{user:username}', function (User $user) {
     return view('pages.posts', [
-        'title'=> count($user->posts) . ' Post by ' . $user->name,
+        'title' => count($user->posts) . ' Post by ' . $user->name,
         'posts' => $user->posts,
     ]);
 });
 
 // Menampilkan posts berdasarkan category
-Route::get('/category/{category:slug}', function (Category $category){
+Route::get('/categories/{category:slug}', function (Category $category) {
     return view('pages.posts', [
-        'title'=> 'Category web ',
+        'title' => 'Category web ',
         'posts' => $category->posts,
     ]);
 });

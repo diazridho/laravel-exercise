@@ -1,5 +1,3 @@
-Ini adalah file untuk m
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -17,10 +15,12 @@ return new class extends Migration {
             $table->string('title');
             // Menghubungkan kolom author di tabel posts ke id dalam tabel users (foreignkey constrained)
             $table->foreignId('author_id')->constrained(
-                table: 'users', indexName: 'posts_author_id'
+                table: 'users',
+                indexName: 'posts_author_id'
             );
             $table->foreignId('category_id')->constrained(
-                table: 'users', indexName: 'posts_category_id'
+                table: 'categories',
+                indexName: 'posts_category_id'
             );
             $table->string('slug')->unique();
             $table->text('body');
