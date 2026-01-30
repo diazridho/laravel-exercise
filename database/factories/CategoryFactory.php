@@ -19,7 +19,8 @@ class CategoryFactory extends Factory
     {
         return [
             'name'=>$name = fake()->sentence(rand(2,3)),
-            'slug'=>Str::slug($name)
+            'slug'=>Str::slug($name),
+            'color'=>fake()->sentence(1)
         ];
     }
 }

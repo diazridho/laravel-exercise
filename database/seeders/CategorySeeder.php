@@ -16,16 +16,19 @@ class CategorySeeder extends Seeder
         Category::create([
             'name' => 'Web Design',
             'slug' => 'web-design',
+            'color' => 'blue',
         ]);
 
         Category::create([
             'name' => 'Artificial Intelligence',
             'slug' => 'artificial-intelligence',
+            'color' => 'yellow',
         ]);
 
         Category::create([
             'name' => 'Machine Learning',
             'slug' => 'machine-learning',
+            'color' => 'red',
         ]);
 
     }

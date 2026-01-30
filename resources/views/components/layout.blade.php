@@ -6,7 +6,6 @@
     <title>Document</title>
     <!-- reference asset -->
     @vite(['resources/css/app.css', 'resources/js/app.js']) 
-
 </head>
 
 <body class='h-full'>
