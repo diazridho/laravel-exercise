@@ -25,5 +25,7 @@ class Post extends Model //otomatis terhubung dengan table posts
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    //eager loading
+    protected $with = ['author', 'category'];
 }
 ;

@@ -11,11 +11,12 @@ use App\Http\Controllers\ContactController;
 // Route::view('/','pages.beranda');
 
 Route::get('/', function () {
-    return view('pages.beranda', [
-        'title' => 'Beranda'
-    ]);
+    return view('pages.beranda', ['title' => 'Beranda']);
 });
-
+Route::get('/contact', function () {
+    return view('pages.contact', ['title' => 'Contact']);
+});
+        
 Route::get('/about', function () {
     $data = [
         "title" => 'About',
@@ -33,30 +34,29 @@ Route::get('/posts/{post:slug}', function (Post $post) {
     return view('pages.post', ['title' => 'Single Post', 'post' => $post]);
 });
 
-Route::get('/contact', function () {
-    return view('pages.contact', ['title' => 'Contact']);
-});
-
-// untuk page blog utama
+// untuk page blog utama (eager loading in model)
 Route::get('/posts', function () {
+    
     return view('pages.posts', [
         'title' => 'Blog',
-        'posts' => Post::all()
+        'posts' => Post::latest()->get()
     ]);
 });
 
-// Menampilkan posts berdasarkan author
+// Menampilkan posts berdasarkan author (load/lazy eager loading)
 Route::get('/authors/{user:username}', function (User $user) {
+    $posts = $user->posts->load('category', 'author');
     return view('pages.posts', [
-        'title' => count($user->posts) . ' Post by ' . $user->name,
+        'title' => count($posts) . ' Post by ' . $user->name,
         'posts' => $user->posts,
     ]);
 });
 
-// Menampilkan posts berdasarkan category
+// Menampilkan posts berdasarkan category (load/lazy eager loading)
 Route::get('/categories/{category:slug}', function (Category $category) {
+    $posts = $category->posts->load(['category', 'author']);
     return view('pages.posts', [
         'title' => 'Category web ',
-        'posts' => $category->posts,
+        'posts' => $posts,
     ]);
 });
