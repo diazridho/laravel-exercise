@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory; // Import factory
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
@@ -25,7 +26,15 @@ class Post extends Model //otomatis terhubung dengan table posts
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    //eager loading
+    //eager loading, ini akan selalu dibawa ketika model digunakan
     protected $with = ['author', 'category'];
+
+    //Query Scope, cakupan data yang akan kita ambil dari db, butuh penjelasan
+    public function scopeFilter(Builder $query, array $filters): void
+    {
+        if ($filters['search'] ?? false){
+            $query->where('title', 'like', '%' . request('search') . '%');
+        }
+    }
 }
 ;

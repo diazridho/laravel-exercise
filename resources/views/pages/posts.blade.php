@@ -1,32 +1,12 @@
 <x-layout>
     <!-- mengambil data Title dari route untuk diteruskan ke layout -->
     <x-slot:title> {{ $title }} </x-slot:title>
+    <x-search-bar></x-search-bar>
 
     <div class="py-4 px-4 mx-auto max-w-7xl lg:py-8 lg:px-0">
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-
             <!-- looping data posts dalam blade -->
             @foreach ($posts as $post)
-
-                {{--<article class="text-white py-8 max-w-3xl border-b border-gray-300">
-                    <!-- mengambil data array post dengan isi title dari route -->
-                    <a href="/posts/{{ $post['slug'] }}" class="hover:underline">
-                        <h2 class="mb-1 text-3xl tracking-tight font-bold text-white"> {{ $post['title'] }}</h2>
-                    </a>
-                    <div>
-                        <!-- href di bawah merujuk pada /authors/{user:username} di route-->
-                        By
-                        <a href="/authors/{{ $post['author']['username'] }}"
-                            class="hover:underline text-base text-gray-500"> {{ $post['author']['name'] }}</a>
-                        In
-                        <a href="/categories/{{ $post['category']['slug'] }}"
-                            class="hover:underline text-base text-gray-500"> {{ $post['category']['name'] }} </a>
-                        | {{ $post['created_at']->format('j F Y') }}
-                    </div>
-                    <p class="my-4 font-light"> {{ Str::limit($post['body'], 100) }}</p>
-                    <a href="/posts/{{ $post['slug'] }}" class="font-medium text-blue-500"> Read more &raquo;</a>
-                </article>--}}
-
                 <article
                     class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col h-full">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
@@ -41,7 +21,7 @@
                     <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline">
                         <a href="/posts/{{ $post->slug }}">{{ $post->title }}</a>
                     </h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400 flex-grow">
+                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400 grow">
                         {{Str::limit($post->body, 100)}}
                     </p>
                     <div
@@ -64,9 +44,7 @@
                         </a>
                     </div>
                 </article>
-
             @endforeach
-
         </div>
     </div>
 
