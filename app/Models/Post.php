@@ -29,12 +29,22 @@ class Post extends Model //otomatis terhubung dengan table posts
     //eager loading, ini akan selalu dibawa ketika model digunakan
     protected $with = ['author', 'category'];
 
-    //Query Scope, cakupan data yang akan kita ambil dari db, butuh penjelasan
+    //Query Scope, cakupan data yang akan kita ambil dari db
     public function scopeFilter(Builder $query, array $filters): void
     {
-        if ($filters['search'] ?? false){
-            $query->where('title', 'like', '%' . request('search') . '%');
-        }
+        // pengkondisian jika ada 'search' yang dikirim dari fe (null coalescing operator)
+        $query->when(
+            $filters['search'] ?? false,
+            function($query, $search){
+                $query->where('title', 'like', '%' . $search . '%');
+            });
+
+        $query->when(
+            $filters['category'] ?? false,
+            function($query, $category){
+                $query->whereHas('category', fn($query)=>$query->where('slug', $category));
+            });
+        
     }
 }
 ;

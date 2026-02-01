@@ -36,12 +36,11 @@ Route::get('/posts/{post:slug}', function (Post $post) {
 
 // untuk page blog utama (eager loading in model).
 Route::get('/posts', function () {
-
     // dump(request('search'));
     // masih butuh penjelasn
     return view('pages.posts', [
         'title' => 'Blog',
-        'posts' => Post::filter(request(['search']))->latest()->get()
+        'posts' => Post::filter(request(['search','category']))->latest()->get()
     ]);
 });
 
@@ -56,9 +55,9 @@ Route::get('/authors/{user:username}', function (User $user) {
 });
 
 // Menampilkan posts berdasarkan category (load/lazy eager loading)
-Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('pages.posts', [
-        'title' => 'Category web ',
-        'posts' => $category->posts,
-    ]);
-});
+// Route::get('/categories/{category:slug}', function (Category $category) {
+//     return view('pages.posts', [
+//         'title' => 'Category web ',
+//         'posts' => $category->posts,
+//     ]);
+// });
