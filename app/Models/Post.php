@@ -32,19 +32,19 @@ class Post extends Model //otomatis terhubung dengan table posts
     //Query Scope, cakupan data yang akan kita ambil dari db
     public function scopeFilter(Builder $query, array $filters): void
     {
-        // pengkondisian jika ada 'search' yang dikirim dari fe (null coalescing operator)
+        // when adalah pasangan query parameter
+        // Scope Search
         $query->when(
             $filters['search'] ?? false,
             function($query, $search){
                 $query->where('title', 'like', '%' . $search . '%');
             });
-
+        // Scope Category
         $query->when(
             $filters['category'] ?? false,
             function($query, $category){
                 $query->whereHas('category', fn($query)=>$query->where('slug', $category));
             });
-        
     }
 }
 ;

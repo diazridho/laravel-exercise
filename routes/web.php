@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\PostController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 // class Post untuk datanya
@@ -16,7 +17,7 @@ Route::get('/', function () {
 Route::get('/contact', function () {
     return view('pages.contact', ['title' => 'Contact']);
 });
-        
+
 Route::get('/about', function () {
     $data = [
         "title" => 'About',
@@ -28,31 +29,14 @@ Route::get('/about', function () {
     return view('pages.about', $data);
 });
 
-// route model binding
-Route::get('/posts/{post:slug}', function (Post $post) {
+// Page blog utama 
+Route::get('/posts', [PostController::class, 'index']);
 
-    return view('pages.post', ['title' => 'Single Post', 'post' => $post]);
-});
+// Page single post
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-// untuk page blog utama (eager loading in model).
-Route::get('/posts', function () {
-    // dump(request('search'));
-    // masih butuh penjelasn
-    return view('pages.posts', [
-        'title' => 'Blog',
-        'posts' => Post::filter(request(['search','category']))->latest()->get()
-    ]);
-});
-
-// Menampilkan posts berdasarkan author (load/lazy eager loading)
-Route::get('/authors/{user:username}', function (User $user) {
-    // Alternatif eager load jika dibutuhkan di route tertentu
-    $posts = $user->posts()->with(['category', 'author'])->get();
-    return view('pages.posts', [
-        'title' => count($posts) . ' Post by ' . $user->name,
-        'posts' => $posts,
-    ]);
-});
+// Page author
+Route::get('/authors/{user:username}', [PostController::class, 'author']);
 
 // Menampilkan posts berdasarkan category (load/lazy eager loading)
 // Route::get('/categories/{category:slug}', function (Category $category) {

@@ -6,11 +6,11 @@
     <div class="py-4 px-4 mx-auto max-w-7xl lg:py-8 lg:px-0">
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <!-- looping data posts dalam blade -->
-            @foreach ($posts as $post)
+            @forelse ($posts as $post)
                 <article
                     class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col h-full">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
-                        <!-- agar mendapatkan variabel category -->
+                        <!-- agar mendapatkan variabel category untuk hidden input-->
                         <a href="/posts?category={{ $post->category->slug }}">
                             <span
                                 class="bg-{{ $post->category->color }}-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
@@ -45,8 +45,19 @@
                         </a>
                     </div>
                 </article>
-            @endforeach
+            @empty
+                <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 inline-block text-left">
+                    <p class="font-bold">Tips Pencarian:</p>
+                    <ul class="list-disc ml-5">
+                        <li>Pastikan semua kata dieja dengan benar.</li>
+                        <li>Coba kata kunci lain yang lebih umum.</li>
+                        <li>Coba hapus filter kategori atau author.</li>
+                    </ul>
+                </div>
+            @endforelse
         </div>
     </div>
+
+    {{ $posts->links() }}
 
 </x-layout>
