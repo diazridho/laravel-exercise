@@ -31,6 +31,7 @@ Route::get('/about', function () {
 
 // Page blog utama 
 Route::get('/posts', [PostController::class, 'index']);
+Route::post('/posts', [PostController::class, 'store']);
 
 // Page single post
 Route::get('/posts/{post:slug}', [PostController::class, 'show']);

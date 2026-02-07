@@ -14,7 +14,7 @@ class Post extends Model //otomatis terhubung dengan table posts
 
     protected $table = "posts"; //digunakan jika nama table berbeda defaultnya adalah +s
     protected $primaryKey = "absen"; //defaultnya adalah id
-    protected $fillable = ['title', 'author', 'slug', 'body'];
+    protected $fillable = ['title', 'slug', 'body', 'author_id', 'category_id'];
 
     // (eloquent relationship) model Post adalah anak dari model User
     public function author(): BelongsTo
@@ -36,15 +36,17 @@ class Post extends Model //otomatis terhubung dengan table posts
         // Scope Search
         $query->when(
             $filters['search'] ?? false,
-            function($query, $search){
+            function ($query, $search) {
                 $query->where('title', 'like', '%' . $search . '%');
-            });
+            }
+        );
         // Scope Category
         $query->when(
             $filters['category'] ?? false,
-            function($query, $category){
-                $query->whereHas('category', fn($query)=>$query->where('slug', $category));
-            });
+            function ($query, $category) {
+                $query->whereHas('category', fn($query) => $query->where('slug', $category));
+            }
+        );
     }
 }
 ;

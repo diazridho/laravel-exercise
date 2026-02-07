@@ -2,6 +2,7 @@
     <!-- mengambil data Title dari route untuk diteruskan ke layout -->
     <x-slot:title> {{ $title }} </x-slot:title>
     <x-search-bar></x-search-bar>
+    <x-modal-create :posts="$posts"></x-modal-create>
 
     <div class="py-4 px-4 mx-auto max-w-7xl lg:py-8 lg:px-0">
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -57,7 +58,5 @@
             @endforelse
         </div>
     </div>
-
-    {{ $posts->links() }}
 
 </x-layout>
